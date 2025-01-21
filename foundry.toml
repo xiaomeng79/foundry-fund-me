@@ -2,6 +2,8 @@
 src = "src"
 out = "out"
 libs = ["dependencies"]
+solc = '0.8.19'
+# auto_detect_solc = true
 
 [dependencies]
 forge-std = "1.9.5"
