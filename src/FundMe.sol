@@ -43,6 +43,17 @@ contract FundMe {
         require(success);
     }
 
+    // 减少访问store,优化gas
+    function cheaperWithdraw() public onlyOwner {
+        uint256 l = s_funders.length;
+        for (uint256 funderIndex = 0; funderIndex < l; funderIndex++) {
+            s_addressToAmountFunded[s_funders[funderIndex]] = 0;
+        }
+        s_funders = new address[](0);
+        (bool success,) = i_owner.call{value: address(this).balance}("");
+        require(success);
+    }
+
     function getAddressToAmountFunded(address fundingAddress) public view returns (uint256) {
         return s_addressToAmountFunded[fundingAddress];
     }
