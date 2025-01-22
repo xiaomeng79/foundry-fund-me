@@ -1,17 +1,26 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.19;
 
+import {PriceConverter} from "./PriceConverter.sol";
+import {AggregatorV3Interface} from "@chainlink/contracts/src/v0.8/shared/interfaces/AggregatorV3Interface.sol";
+
 error FundMe__NotOwner();
 
 contract FundMe {
+    // Type Declarations
+    using PriceConverter for uint256;
     // 最小金额
-    uint256 public constant MINIMUM = 1 * 10 ** 7;
+
+    uint256 public constant MINIMUM_USD = 5 * 10 ** 18;
     mapping(address => uint256) private s_addressToAmountFunded;
     address[] private s_funders;
     address private immutable i_owner;
+    // 价格
+    AggregatorV3Interface private s_priceFeed;
 
-    constructor() {
+    constructor(address priceFeed) {
         i_owner = msg.sender;
+        s_priceFeed = AggregatorV3Interface(priceFeed);
     }
 
     modifier onlyOwner() {
@@ -20,7 +29,7 @@ contract FundMe {
     }
 
     function fund() public payable {
-        require(msg.value >= MINIMUM, "you need to speed more ETH!");
+        require(msg.value.getConversionRate(s_priceFeed) >= MINIMUM_USD, "you need to speed more ETH!");
         s_addressToAmountFunded[msg.sender] += msg.value;
         s_funders.push(msg.sender);
     }
