@@ -6,6 +6,12 @@ checksum = "57ada736f383289db77fac4472d48f820e7c98172cf9b01681b0c37065ce043f"
 integrity = "4753ffdfa0dde40878372b6a4d8e8fd1648b190b33996896c8b92f6f1680850f"
 
 [[dependencies]]
+name = "foundry-devops"
+version = "0.2.5"
+git = "https://github.com/Cyfrin/foundry-devops.git"
+rev = "90b6dde61322b916020d396817023602f4ef96ed"
+
+[[dependencies]]
 name = "smartcontractkit/chainlink-brownie-contracts"
 version = "1.3.0"
 git = "https://github.com/smartcontractkit/chainlink-brownie-contracts.git"

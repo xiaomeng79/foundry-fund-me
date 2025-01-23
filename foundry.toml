@@ -4,9 +4,10 @@ out = "out"
 libs = ["dependencies"]
 solc = '0.8.19'
 # auto_detect_solc = true
-
+fs_permissions = [{ access = "read", path = "./broadcast" }]
 [dependencies]
 forge-std = "1.9.5"
 "smartcontractkit/chainlink-brownie-contracts" = { version = "1.3.0", git = "https://github.com/smartcontractkit/chainlink-brownie-contracts.git", tag = "1.3.0" }
+foundry-devops = { version = "0.2.5", git = "https://github.com/Cyfrin/foundry-devops.git", tag = "0.2.5" }
 
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
